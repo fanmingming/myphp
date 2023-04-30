@@ -3,8 +3,9 @@
 ### 按照以下步骤操作：
 - forks本项目
 - 为域名添加一条CNAME到cname-china.vercel-dns.com
-- 访问https://vercel.com 选择你Github用户名下的myphp并构建。
+- 访问https://vercel.com 使用Github账号登陆，选择myphp并构建。
 - 构建完成后编辑Vercel的域名设置，等待生效。
-- 访问https://你的域名/api/index.php
+- 访问你的域名。
+- 最后你可以：删除README.md 删除或编辑自己的index.html内容。
 ### 说明
-- 这只是一个简单的示例，将你的php文件上传至自己仓库的api目录下都会自动构建。
+- 这只是一个简单的示例，将php文件上传至自己Github仓库的api目录都会自动构建。
