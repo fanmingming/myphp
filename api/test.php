@@ -1,54 +1,28 @@
 <?php
-    // 视频 ID 与名称的映射关系数组
-    $ids = [
-        'ws' => '573ib1kp5nk92irinpumbo9krlb', //北京卫视
-        'wy' => '54db6gi5vfj8r8q1e6r89imd64s', //BRTV文艺
-        'kj' => '53bn9rlalq08lmb8nf8iadoph0b', //BRTV科教
-        'ys' => '50mqo8t4n4e8gtarqr3orj9l93v', //BRTV影视
-        'cj' => '50e335k9dq488lb7jo44olp71f5', //BRTV财*
-        'sh' => '50j015rjrei9vmp3h8upblr41jf', //BRTV生活
-        'xw' => '53gpt1ephlp86eor6ahtkg5b2hf', //BRTV新闻
-        'kk' => '55skfjq618b9kcq9tfjr5qllb7r', //卡酷少儿
-    ];
-
-    // 获取传入的参数 id，如果没有传入则默认为 'ws'
-    $id = strtolower($_GET['id'] ?? 'ws');
-
-    // 根据传入的参数 id 获取视频 ID
-    $id = $ids[$id];
-
-    // 获取当前时间戳
-    $t = time();
-
-    // 设置视频类型 ID
-    $type_id = "151";
-
-    // 生成签名
-    $salt = 'TtJSg@2g*$K4PjUH';
-    $sign = substr(md5("{$id}{$type_id}{$t}{$salt}"), 0, 8);
-
-    // 拼接 API 请求 URL
-    $url = "https://pc.api.btime.com/video/play?from=pc&id={$id}&type_id={$type_id}&timestamp={$t}&sign={$sign}";
-
-    // 使用 curl 库向拼接好的 URL 发送请求
-    $ch = curl_init();
-    curl_setopt_array($ch, [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_HTTPHEADER => ['User-Agent: Mozilla/5.0'],
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_SSL_VERIFYHOST => false,
-    ]);
-    $data = curl_exec($ch);
-    curl_close($ch);
-
-    // 将返回的数据解析为 JSON 格式
-    $json = json_decode($data);
-
-    // 从 JSON 数据中提取出视频的播放地址
-    $playURL = strrev(base64_decode(base64_decode($json->data->video_stream[0]->stream_url)));
-
-    // 将提取到的播放地址作为参数设置在 header() 函数中，重定向到该地址
-    header("Location: {$playURL}");
-    exit;
+// 从 URL 中获取 ID，如果没有提供 ID 则默认使用 ws，即北京卫视
+$id = $_GET['id'] ?? 'ws';
+// 存储不同频道的 ID
+$n = [
+    'ws' => '573ib1kp5nk92irinpumbo9krlb',  //北京卫视
+    'wy' => '54db6gi5vfj8r8q1e6r89imd64s',  //BRTV文艺
+    'js' => '53bn9rlalq08lmb8nf8iadoph0b',  //BRTV纪实科教
+    'ys' => '50mqo8t4n4e8gtarqr3orj9l93v',  //BRTV影视
+    'cj' => '50e335k9dq488lb7jo44olp71f5',  //BRTV财经
+    'ty' => '54hv0f3pq079d4oiil2k12dkvsc',  //BRTV体育休闲
+    'sh' => '50j015rjrei9vmp3h8upblr41jf',  //BRTV生活
+    'xw' => '53gpt1ephlp86eor6ahtkg5b2hf',  //BRTV新闻
+    'kk' => '55skfjq618b9kcq9tfjr5qllb7r',  //卡酷少儿
+];
+// 生成时间戳
+$t = time();
+// 使用 $n 数组中对应的 ID 和时间戳 $t 以及一个字符串 'TtJSg@2g*$K4PjUH' 生成一个签名 $s
+$s = substr(md5($n[$id] . "151" . $t . 'TtJSg@2g*$K4PjUH'), 0, 8);
+// 向 https://pc.api.btime.com 发送一个请求，获取视频的详细信息
+$res = file_get_contents("https://pc.api.btime.com/video/play?from=pc&callback=&id=" . $n[$id] . "&type_id=151×tamp=" . $t . "&sign=" . $s);
+// 从返回的 JSON 数据中获取视频的播放地址 $stream_url
+$stream_url = json_decode($res)->data->video_stream[0]->stream_url;
+// 进行一些解码操作，获取播放地址 $playurl
+$playurl = base64_decode(base64_decode(strrev($stream_url)));
+// 重定向用户到播放地址
+header('location:' . $playurl);
 ?>
