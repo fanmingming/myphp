@@ -1,7 +1,7 @@
 # myphp
 30秒在Vercel构建自己的无服务器php环境并实现国内直连访问。
-### 按照以下步骤操作：
-- forks本项目
+### 操作步骤：
+- 准备好自己的域名并forks本项目
 - 为域名添加一条CNAME到`cname-china.vercel-dns.com`
 - 访问https://vercel.com 使用Github账号登陆，选择myphp并构建。
 - 编辑Vercel的域名设置，等待生效。
@@ -10,7 +10,7 @@
 ### 说明
 - 这只是一个简单的示例，每次编辑php文件或上传新的php文件到api目录都会自动构建。
 
-### 主要目录结构
+### 主要目录文件结构
 ```sh
 myphp
 ├── api
