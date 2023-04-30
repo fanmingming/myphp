@@ -1,5 +1,4 @@
 <?php
-// 视频 ID 与名称的映射关系数组
 $ids = [
     'ws' => '573ib1kp5nk92irinpumbo9krlb', //北京卫视
     'wy' => '54db6gi5vfj8r8q1e6r89imd64s', //BRTV文艺
@@ -10,14 +9,33 @@ $ids = [
     'xw' => '53gpt1ephlp86eor6ahtkg5b2hf', //BRTV新闻
     'kk' => '55skfjq618b9kcq9tfjr5qllb7r', //卡酷少儿
 ];
-// 获取传入的参数 id，如果没有传入则默认为 'ws'
+
 $id = strtolower($_GET['id'] ?? 'ws');
-// 根据传入的参数 id 获取视频 ID
-$id = $ids[$id];
-// 生成签名
+$id = $ids[$id] ?? '';
+
+$t = time();
+$type_id = '151';
 $salt = 'TtJSg@2g*$K4PjUH';
-$sign = substr(md5("{$id}151" . time() . $salt), 0, 8);
-// 拼接 API 请求 URL
-$bstrURL = "https://pc.api.btime.com/video/play?from=pc&id={$id}&type_id=151&timestamp=" . time() . "&sign={$sign}";
-// 重定向到播放地址
-header("Location: " . json_decode(file_get_contents($bstrURL))->data->video_stream[0]->stream_url);
+$sign = substr(md5("$id$type_id$t$salt"), 0, 8);
+
+$bstrURL = "https://pc.api.btime.com/video/play?from=pc&id=$id&type_id=$type_id&timestamp=$t&sign=$sign";
+
+$ch = curl_init();
+curl_setopt_array($ch, [
+    CURLOPT_URL => $bstrURL,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => ['User-Agent: Mozilla/5.0'],
+    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_SSL_VERIFYHOST => false,
+]);
+$data = curl_exec($ch);
+curl_close($ch);
+
+$json = json_decode($data);
+$playURL = $json->data->video_stream[0]->stream_url ?? '';
+$playURL = strrev(base64_decode(base64_decode($playURL)));
+
+if ($playURL) {
+    header("Location: $playURL");
+}
+?>
