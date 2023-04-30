@@ -1,10 +1,11 @@
 # myphp
 30秒在Vercel构建自己的无服务器php环境并实现国内直连访问。
 ### 操作步骤：
-- 准备好自己的域名并forks本项目
+- 准备好域名
+- forks本项目
 - 为域名添加一条CNAME到`cname-china.vercel-dns.com`
 - 访问https://vercel.com 使用Github账号登陆，选择myphp并构建。
-- 编辑Vercel的域名设置，等待生效。
+- 编辑Vercel网站项目的域名设置，改为你的域名保存，等待生效。
 - 访问你的域名。
 > 最后你可以：删除`README.md`，删除或编辑`index.html`。将自己的`myphp`项目设置为私有。
 ### 说明
