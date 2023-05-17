@@ -8,9 +8,8 @@
 - 编辑Vercel网站项目的域名设置，改为你的域名保存，等待生效。
 - 访问你的域名。
 > 最后你可以：删除`README.md`，删除或编辑`index.html`。将自己Github仓库的`myphp`项目设置为私有。
-### 说明及Demo链接：
-- 这只是一个简单的示例，每次编辑或上传新的php文件到Github仓库的api目录下都会自动构建。
-- php环境演示：https://myphp.fanmingming.com/api/
+### 说明：
+- 这只是一个简单的示例，每次编辑或上传新的php文件到Github仓库的api目录下都会自动构建。构建完成后访问你的域名即可。
 ### 主要目录文件结构：
 ```sh
 myphp
