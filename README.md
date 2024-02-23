@@ -21,10 +21,10 @@ myphp
 ### php版本：
 默认部署的php版本为8.3.X。编辑`vercel.json`文件可构建不同版本的php环境。
 - `vercel-php@0.7.0` - PHP 8.3.x
-- `vercel-php@0.6.0` - PHP 8.2.x
-- `vercel-php@0.5.3` - PHP 8.1.x
-- `vercel-php@0.4.1` - PHP 8.0.x
-- `vercel-php@0.3.3` - PHP 7.4.x
+- `vercel-php@0.6.1` - PHP 8.2.x
+- `vercel-php@0.5.4` - PHP 8.1.x
+- `vercel-php@0.4.3` - PHP 8.0.x
+- `vercel-php@0.3.5` - PHP 7.4.x
 ### 官方仓库：
 - https://github.com/vercel-community/php/
 ### 更新说明
