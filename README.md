@@ -4,6 +4,7 @@
 - 准备好域名
 - 为域名添加一条CNAME到`cname-china.vercel-dns.com`
 - 点击下方按钮跳转并部署
+
 <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffanmingming%2Fmyphp&project-name=MyPHP&repository-name=MyPHP"><img src="https://vercel.com/button"></a>
 - 找到Vercel项目的域名设置，改为你的域名保存
 - 访问你的域名
